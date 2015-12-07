@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: J.P. Klousia
-  description: installation of the specified wso2 application on a CentOS server.
+  description: Installation of the specified wso2 application on a CentOS server.
   company: CSRA
   license: MIT
   min_ansible_version: 1.2

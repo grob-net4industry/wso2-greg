@@ -1,5 +1,5 @@
 ---
-# handlers file for klousiaj.wso2-app
+# handlers file for klousiaj.wso2-greg
 - name: restart wso2-app
   become: yes
   become_method: sudo

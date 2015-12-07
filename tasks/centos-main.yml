@@ -1,4 +1,4 @@
-# tasks file for klousiaj.wso2-app - centOS specific tasks
+# tasks file for klousiaj.wso2-greg - centOS specific tasks
 
 ### On CentOS we use firewalld.
 - name: install unzip

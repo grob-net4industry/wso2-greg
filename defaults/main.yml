@@ -1,5 +1,5 @@
 ---
-# defaults file for klousiaj.wso2
+# defaults file for klousiaj.wso2-greg
 wso2_user: wso2
 carbon_base: "/opt/wso2/{{wso2_app}}"
 carbon_home: "{{carbon_base}}/current"
@@ -12,6 +12,7 @@ wso2_default_http_port: 9763
 java_home: "/usr/java/default"
 
 # wso2
+wso2_app: wso2greg
 wso2_app_version: 5.1.0
 wso2_app_directory: "{{wso2_app}}-{{ wso2_app_version }}"
 wso2_app_offset: 0
