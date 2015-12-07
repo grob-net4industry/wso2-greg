@@ -1,5 +1,5 @@
 ---
-# tasks file for klousiaj.wso2-greg
+# tasks file for klousiaj.wso2-app
 
 #### section for creating wso2 user and appropriate credentials and access.
 - name: Create service account for wso2
@@ -12,12 +12,12 @@
     shell: /bin/false
     state: present
     
-- name: Add the wso2-sudoers script 
+- name: Add the wso2-app-sudoers script 
   become: yes
   become_method: sudo
   template:
-    src: wso2-greg-sudoers.j2
-    dest: "/etc/sudoers.d/wso2-greg-sudoers"
+    src: wso2-app-sudoers.j2
+    dest: "/etc/sudoers.d/{{wso2_app}}-sudoers"
     validate: 'visudo -cf %s'
     mode: 0440
 
@@ -30,7 +30,7 @@
 
 - name: Check if the version already exists on the remote system.
   stat: 
-    path: "{{ carbon_base }}/{{ wso2_greg_directory }}"
+    path: "{{ carbon_base }}/{{ wso2_app_directory }}"
   register: version_deployed
 
 - name: Copy the file and unzip it on the remote system
@@ -42,7 +42,7 @@
     dest: "/home/{{ wso2_user }}"
     mode: 0755
   with_items:
-    - "{{ wso2_greg_archive }}"
+    - "{{ wso2_app_archive }}"
   when: not version_deployed.stat.exists
     
 - name: Make the base directory for the wso2 apps.
@@ -59,7 +59,7 @@
 - name: Move WSO2 directory into place.
   become: yes
   become_method: sudo
-  command: "mv /home/{{ wso2_user }}/{{ wso2_greg_directory }} {{ carbon_base }}/{{ wso2_greg_directory }}"
+  command: "mv /home/{{ wso2_user }}/{{ wso2_app_directory }} {{ carbon_base }}/{{ wso2_app_directory }}"
   when: not version_deployed.stat.exists
   
 - name: Create link to the install directory at carbon_home.
@@ -67,7 +67,7 @@
   become_user: "{{ wso2_user }}"
   file: 
     state: link
-    src: "{{ carbon_base }}/{{ wso2_greg_directory }}"
+    src: "{{ carbon_base }}/{{ wso2_app_directory }}"
     dest: "{{ carbon_home }}"
   when: not version_deployed.stat.exists
   
@@ -91,24 +91,20 @@
   when: not version_deployed.stat.exists
 
 #### section for initializing the application to start and run as a service. 
-- name: Add wso2 greg init script.
+- name: Add wso2 app init script.
   become: yes
   become_method: sudo
   template:
-    src: wso2-greg-init_d.j2
+    src: wso2-app-init_d.j2
     dest: "/etc/init.d/{{ wso2_app }}"
     mode: 0755
-  notify: restart wso2-greg
+  notify: restart wso2-app
 
-- name: Ensure wso2-greg is set to start on boot.
+- name: Ensure wso2-app is set to start on boot.
   become: yes
   become_method: sudo
   service: 
     name: "{{ wso2_app }}" 
     enabled: yes
     state: started
-  notify: restart wso2-greg
-  
-# if the installation of sample data is requested
-- include: sample-data/sample.yml
-  when: wso2_greg_sample_data == true
+  notify: restart wso2-app

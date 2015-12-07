@@ -20,19 +20,19 @@
     <ServiceProviders>
         <ServiceProvider>
             <Issuer>store</Issuer>
-            <AssertionConsumerService>https://{{ inventory_hostname }}:{{ wso2_greg_https_port }}/store/acs</AssertionConsumerService>
+            <AssertionConsumerService>https://{{ inventory_hostname }}:{{ wso2_app_https_port }}/store/acs</AssertionConsumerService>
             <SignResponse>true</SignResponse>
             <CustomLoginPage>/store/login.jag</CustomLoginPage>
         </ServiceProvider>
         <ServiceProvider>
             <Issuer>social</Issuer>
-            <AssertionConsumerService>https://{{ inventory_hostname }}:{{ wso2_greg_https_port }}/social/acs</AssertionConsumerService>
+            <AssertionConsumerService>https://{{ inventory_hostname }}:{{ wso2_app_https_port }}/social/acs</AssertionConsumerService>
             <SignResponse>true</SignResponse>
             <CustomLoginPage>/social/login</CustomLoginPage>
         </ServiceProvider>
         <ServiceProvider>
             <Issuer>publisher</Issuer>
-            <AssertionConsumerService>https://{{ inventory_hostname }}:{{ wso2_greg_https_port }}/publisher/acs</AssertionConsumerService>
+            <AssertionConsumerService>https://{{ inventory_hostname }}:{{ wso2_app_https_port }}/publisher/acs</AssertionConsumerService>
             <SignResponse>true</SignResponse>
             <CustomLoginPage>/publisher/controllers/login.jag</CustomLoginPage>
         </ServiceProvider>

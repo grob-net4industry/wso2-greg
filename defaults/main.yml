@@ -1,25 +1,20 @@
 ---
-# defaults file for klousiaj.wso2-greg
+# defaults file for klousiaj.wso2
 wso2_user: wso2
 carbon_base: "/opt/wso2/{{wso2_app}}"
 carbon_home: "{{carbon_base}}/current"
 
 # these are the default ports for wso2 products
 wso2_default_https_port: 9443
-wso2_default_http_port: 9763 
+wso2_default_http_port: 9763
 
-# wso2-greg
-wso2_app: wso2-greg
-wso2_greg_version: 5.1.0
-wso2_greg_directory: "wso2greg-{{ wso2_greg_version }}"
-wso2_greg_offset: 0
-wso2_greg_https_port: "{{ (wso2_default_https_port|int) + (wso2_greg_offset|int) }}"
-wso2_greg_http_port: "{{ (wso2_default_http_port|int) + (wso2_greg_offset|int) }}"
+#the following is written into the init.d file for the service
+java_home: "/usr/java/default"
 
-# this is only used if you are installing the sample data
-# vars/main.yml:wso2_greg_sample_data == true
-apache_ant_version: 1.9.6
-apache_ant_home: /opt/apache/ant/current
-apache_base: "/opt/apache"
-apache_ant_base: "{{ apache_base }}/ant"
-apache_mirror: "http://apache.osuosl.org"
+# wso2
+wso2_app_version: 5.1.0
+wso2_app_directory: "{{wso2_app}}-{{ wso2_app_version }}"
+wso2_app_offset: 0
+wso2_app_https_port: "{{ (wso2_default_https_port|int) + (wso2_app_offset|int) }}"
+wso2_app_http_port: "{{ (wso2_default_http_port|int) + (wso2_app_offset|int) }}"
+wso2_app_archive: "{{wso2_app}}-{{wso2_app_version}}.zip"

@@ -1,4 +1,4 @@
-# tasks file for klousiaj.wso2-greg - centOS specific tasks
+# tasks file for klousiaj.wso2-app - centOS specific tasks
 
 ### On CentOS we use firewalld.
 - name: install unzip
@@ -25,5 +25,5 @@
     immediate: yes
     state: enabled
   with_items:
-    - "{{ wso2_greg_http_port }}"
-    - "{{ wso2_greg_https_port }}"
+    - "{{ wso2_app_http_port }}"
+    - "{{ wso2_app_https_port }}"
