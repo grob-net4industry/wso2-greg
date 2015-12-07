@@ -1,0 +1,29 @@
+# tasks file for klousiaj.wso2-greg - centOS specific tasks
+
+### On CentOS we use firewalld.
+- name: install unzip
+  become: yes
+  become_method: sudo
+  yum: 
+    name: unzip
+    update_cache: yes
+    state: latest
+
+- name: check that firewalld is running
+  become: yes
+  become_method: sudo
+  service:
+    name: firewalld
+    enabled: yes
+    
+- name: update the firewall rules to allow access over the specified port
+  become: yes
+  become_method: sudo
+  firewalld:
+    port: "{{ item }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  with_items:
+    - "{{ wso2_greg_http_port }}"
+    - "{{ wso2_greg_https_port }}"

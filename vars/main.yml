@@ -1,0 +1,4 @@
+---
+# vars file for klousiaj.wso2-greg
+# load the sample data if true.
+wso2_greg_sample_data: false

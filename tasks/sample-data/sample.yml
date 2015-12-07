@@ -1,0 +1,64 @@
+# tasks file for klousiaj.wso2-greg when executing the sample build
+- name: download apache ant
+  get_url: 
+    url: "{{ apache_mirror }}/ant/binaries/apache-ant-{{ apache_ant_version }}-bin.tar.gz" 
+    dest: "/tmp/apache-ant-{{ apache_ant_version }}-bin.tar.gz"
+    timeout: 30
+    mode: 0777
+
+# install apache-ant
+- name: Make the base directory for apache.
+  become: yes
+  become_method: sudo
+  file: 
+    dest: "{{ apache_base }}"
+    mode: 0755
+    state: directory
+    
+- name: Make the base directory for ant.
+  become: yes
+  become_method: sudo
+  file: 
+    dest: "{{ apache_ant_base }}"
+    mode: 0755
+    state: directory
+    
+- name: Unzip the file to the right directory
+  become: yes
+  become_method: sudo
+  unarchive:
+    src: "{{ item }}"
+    dest: "{{ apache_ant_base }}"
+    copy: no
+    mode: 0755
+  with_items:
+    - "/tmp/apache-ant-{{ apache_ant_version }}-bin.tar.gz"
+
+- name: Create link to the install directory at ant_home.
+  become: yes
+  become_method: sudo
+  file: 
+    state: link
+    src: "{{ apache_ant_base }}/apache-ant-{{ apache_ant_version }}"
+    dest: "{{ apache_ant_home }}"
+    
+- name: Add ant symlink to /usr/local/bin.
+  become: yes
+  become_method: sudo
+  file:
+    src: "{{ apache_ant_home }}/bin/ant"
+    dest: "/usr/local/bin/ant"
+    state: link
+
+# run the sample files
+- name: run the ant script to populate the data
+  become: yes
+  become_method: sudo
+  become_user: "{{ wso2_user }}"
+  environment: 
+    JAVA_HOME: "{{ java_home }}"
+    ANT_HOME: "{{ apache_ant_home }}"
+  shell: "/usr/local/bin/ant run"
+  args:
+    executable: "/bin/bash" 
+    chdir: "{{ carbon_home }}/samples/data-populator/Populator"
