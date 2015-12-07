@@ -1,4 +1,4 @@
-klousiaj.wso2-app
+klousiaj.wso2-greg
 =========
 A role that installs an instance of the specified WSO2 product on CentOS. An example would be the [WSO2 Governance Registry](http://wso2.com/products/governance-registry/). This role installs the instance as a service that will start on boot.
 
@@ -20,7 +20,7 @@ There are two variables that need to be defined by the user.
 The following variables are defined in the `defaults/main.yml` file.
 
     ---
-    # defaults file for klousiaj.wso2
+    # defaults file for klousiaj.wso2-greg
     wso2_user: wso2
     carbon_base: "/opt/wso2/{{wso2_app}}"
     carbon_home: "{{carbon_base}}/current"
@@ -49,7 +49,7 @@ Example Playbook
     ---
     - hosts: *
       roles:
-        - { role: klousiaj.wso2-app, wso2_app: "wso2greg", wso2_app_version: "5.1.0"}
+        - { role: klousiaj.wso2-greg, wso2_app: "wso2greg", wso2_app_version: "5.1.0"}
 
 License
 -------
