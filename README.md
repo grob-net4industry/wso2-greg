@@ -10,13 +10,6 @@ This role assumes that a Java JDK has already been installed on the target machi
 
 Role Variables
 --------------
-There are two variables that need to be defined by the user.
-
-    # user provided variables
-    wso2_app: the name of the app to install (i.e. wso2greg)
-    wso2_app_version: the version of the app to install (i.e. 5.1.0)
-    
-
 The following variables are defined in the `defaults/main.yml` file.
 
     ---
@@ -25,14 +18,16 @@ The following variables are defined in the `defaults/main.yml` file.
     carbon_base: "/opt/wso2/{{wso2_app}}"
     carbon_home: "{{carbon_base}}/current"
     
+    # these are the default ports for wso2 products
+    wso2_default_https_port: 9443
+    wso2_default_http_port: 9763
+    
     #the following is written into the init.d file for the service
     java_home: "/usr/java/default"
     
-    # these are the default ports for wso2 products
-    wso2_default_https_port: 9443
-    wso2_default_http_port: 9763 
-    
     # wso2
+    wso2_app: wso2greg
+    wso2_app_version: 5.1.0
     wso2_app_directory: "{{wso2_app}}-{{ wso2_app_version }}"
     wso2_app_offset: 0
     wso2_app_https_port: "{{ (wso2_default_https_port|int) + (wso2_app_offset|int) }}"
