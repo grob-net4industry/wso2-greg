@@ -86,6 +86,16 @@
     mode: 0755
   when: not version_deployed.stat.exists
 
+
+- name: Copy the user management config file onto the server
+  become: yes
+  become_user: "{{ wso2_user }}"
+  template:
+    src: "wso2-user-mgt.xml.j2"
+    dest: "{{carbon_home}}/repository/conf/user-mgt.xml"
+    mode: 0755
+  when: not version_deployed.stat.exists
+
 #### section for initializing the application to start and run as a service. 
 - name: Add wso2 app init script.
   become: yes
