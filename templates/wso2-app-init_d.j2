@@ -10,10 +10,10 @@
 
 # Author: J.P. Klousia
 export JAVA_HOME='{{ java_home }}'
-
-startcmd='{{ carbon_home }}/bin/wso2server.sh -DportOffset={{wso2_app_offset}} start > /dev/null &'
-restartcmd='{{ carbon_home }}/bin/wso2server.sh -DportOffset={{wso2_app_offset}} restart > /dev/null &'
-stopcmd='{{ carbon_home }}/bin/wso2server.sh -DportOffset={{wso2_app_offset}} stop > /dev/null &'
+export CARBON_HOME={{carbon_home}}
+startcmd='$CARBON_HOME/bin/wso2server.sh -DportOffset={{wso2_app_offset}} start > $CARBON_HOME/repository/logs/service.log &'
+restartcmd='$CARBON_HOME/bin/wso2server.sh -DportOffset={{wso2_app_offset}} restart >  $CARBON_HOME/repository/logs/service.log &'
+stopcmd='$CARBON_HOME/bin/wso2server.sh -DportOffset={{wso2_app_offset}} stop >  $CARBON_HOME/repository/logs/service.log &'
  
 case "$1" in
 start)
