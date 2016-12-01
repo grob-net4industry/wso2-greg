@@ -3,6 +3,8 @@
 - name: restart wso2-app
   become: yes
   become_method: sudo
-  service: 
-    name: "{{ wso2_app }}" 
-    state: restarted
+  debug:
+    msg: "init script does not support restarts"
+#  service: 
+#    name: "{{ wso2_app }}" 
+#    state: restarted
